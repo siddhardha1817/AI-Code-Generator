@@ -135,7 +135,7 @@ TEMPLATE = r"""
       const chatWindow = document.getElementById('chat-window');
       const userBlock = document.createElement('div');
       userBlock.className = 'message user';
-      userBlock.innerHTML = <div class="role">User</div><div class="bubble"><pre>${escapeHtml(question)}</pre></div>;
+      userBlock.innerHTML = `<div class="role">User</div><div class="bubble"><pre>${escapeHtml(question)}</pre></div>`;
       chatWindow.appendChild(userBlock);
       chatWindow.scrollTop = chatWindow.scrollHeight;
 
