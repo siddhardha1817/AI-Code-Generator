@@ -1,11 +1,11 @@
-from boltiotai import openai
+from openai import OpenAI
 import os
 from flask import Flask, render_template_string, request, session, jsonify, redirect, url_for
 
 # ========================
-# OpenAI / BoltIOT config
+# OpenAI config
 # ========================
-openai.api_key = os.environ.get('OPENAI_API_KEY', '')
+client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY', ''))
 
 # ========================
 # Flask app config
@@ -22,11 +22,11 @@ SYSTEM_PROMPT = (
 )
 
 def call_model(messages):
-    response = openai.chat.completions.create(
-        model="gpt-3.5",
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
         messages=messages,
     )
-    return response["choices"][0]["message"]["content"].strip()
+    return response.choices[0].message.content.strip()
 
 def get_history():
     history = session.get("history")
