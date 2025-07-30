@@ -21,14 +21,20 @@ SYSTEM_PROMPT = (
 )
 
 def call_model(messages):
-    response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=messages
-    )
-    choices = response.choices
-    if not choices or not choices[0].message.content.strip():
-        return "Sorry, I couldn't process the code. Please try again with a valid snippet."
-    return choices[0].message.content.strip()
+    if not os.environ.get('OPENAI_API_KEY'):
+        return "Error: OpenAI API key not configured. Please set your OPENAI_API_KEY in the Secrets tab."
+    
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=messages
+        )
+        choices = response.choices
+        if not choices or not choices[0].message.content.strip():
+            return "Sorry, I couldn't process the code. Please try again with a valid snippet."
+        return choices[0].message.content.strip()
+    except Exception as e:
+        return f"OpenAI API Error: {str(e)}. Please check your API key and try again."
 
 def get_history():
     history = session.get("history")
@@ -168,7 +174,11 @@ TEMPLATE = r"""
       });
 
       const data = await response.json();
-      typing.querySelector('.bubble').innerHTML = '<pre>' + escapeHtml(data.answer || 'No response.') + '</pre>';
+      if (data.error) {
+        typing.querySelector('.bubble').innerHTML = '<pre>' + escapeHtml(data.error) + '</pre>';
+      } else {
+        typing.querySelector('.bubble').innerHTML = '<pre>' + escapeHtml(data.answer || 'No response.') + '</pre>';
+      }
     } catch (err) {
       typing.querySelector('.bubble').innerText = 'Network error. Please try again.';
     } finally {
