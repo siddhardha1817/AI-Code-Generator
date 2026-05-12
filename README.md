@@ -53,13 +53,13 @@ project-folder/
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/siddhardha1817/AI-Code-Analyzer.git
+git clone https://github.com/siddhardha1817/AI-Code-Generator.git
 ```
 
 ## Move into Project Directory
 
 ```bash
-cd AI-Code-Analyzer.git
+cd AI-Code-Generator.git
 ```
 
 ## Install Dependencies
@@ -166,7 +166,7 @@ https://84c409a6-3f7d-4fd9-976d-6dc05ef41c9b-00-1lcjfv8w117hy.pike.replit.dev/
 # GitHub Repository
 
 ```text
-https://github.com/siddhardha1817/AI-Code-Analyzer/
+https://github.com/siddhardha1817/AI-Code-Generator/
 ```
 
 ---
